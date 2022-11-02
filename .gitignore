@@ -1,3 +1,6 @@
+# Generated on-the-fly during testing
+GAME_2/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

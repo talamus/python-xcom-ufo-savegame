@@ -61,9 +61,16 @@ def test_index_and_data():
     assert possessions[0].owner.data() == OWNERS[possessions[0].owner.index()]
 
 
-def test_missing_reference():
+def test_broken_reference():
     with pytest.raises(IndexError):
         possessions[2].owner
+
+
+def test_removing_and_inserting_rows():
+    with pytest.raises(NotImplementedError):
+        del possessions[0]
+    with pytest.raises(NotImplementedError):
+        possessions.insert(0, Thing({"nope": "wont work"}))
 
 
 def test_wrong_row_data_type():
@@ -104,3 +111,10 @@ def test_data_iteration():
         assert new_owners[i] == OWNERS[i]
     assert len(OWNERS) == len(owners)
     assert len(new_owners) == len(owners)
+
+
+def test_clearing_the_table():
+    owners.clear()
+    possessions.clear()
+    assert len(owners) == 0
+    assert len(possessions) == 0
