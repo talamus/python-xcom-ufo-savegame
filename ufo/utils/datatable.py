@@ -1,5 +1,6 @@
-from __future__ import annotations  # TODO: Remove when forward declaring
-# of type hints are the standard
+# TODO: Remove when forward declaring of type hints is the standard
+from __future__ import annotations
+
 from typing import Any, Iterator
 from collections.abc import MutableSequence, MutableMapping
 
@@ -21,12 +22,14 @@ class DataRow(MutableMapping):
             return self.__getattribute__(field)
 
     def __setattr__(self, field: str, value: Any) -> None:
+        """ If field already exists on data object, set it. Otherwise set own attribute instead. """
         if "_DataRow__data" in self.__dict__ and hasattr(self.__data, field):
             setattr(self.__data, field, value)
         else:
             super().__setattr__(field, value)
 
     def __getitem__(self, field: str) -> Any:
+        """ If field is a reference to an another table, return the object from there instead. """
         value = getattr(self.__data, field)
         if field in self.__table.references:
             return self.__table.references[field][value]
