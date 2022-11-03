@@ -9,10 +9,16 @@ from abc import abstractmethod
 class BaseRecord:
     """ A base class for all save game records. """
 
-    ENCODING = "cp437"      # A wild guess
+    ENCODING = "cp437"    # A wild guess
     FILE_NAME = ""
     NUMBER_OF_RECORDS = 0
-    RECORD_LENGTH = 0       # In bytes
+    RECORD_LENGTH = 0     # bytes
+
+    def __init__(self, data: bytes | None = None) -> None:
+        self.original_bytes = data
+        self.active = False
+        if data:
+            self.unpack(data)
 
     @classmethod
     def read(cls, save_game_dir: str, container: Sequence[BaseRecord] = list()):

@@ -24,7 +24,7 @@ def test_simple_read(game_1_path):
     soldiers = Soldier.read(game_1_path)
     assert len(soldiers) == 250
     assert soldiers[8].name == "Helen Jonlan"
-    assert soldiers[8].alive
+    assert soldiers[8].active
 
 
 def test_simple_write(game_1_path, game_2_path):
@@ -39,7 +39,7 @@ def test_datatable_read(game_1_path):
     soldiers = DataTable(Soldier).read(game_1_path)
     assert len(soldiers) == 250
     assert soldiers[8].name == "Helen Jonlan"
-    assert soldiers[8].alive
+    assert soldiers[8].active
 
 
 def test_datatable_write(game_1_path, game_2_path):
