@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "python-xcom-ufo-savegame"
+version = "0.1.0"
+description = "Save game reader/writer for DOS version of UFO: Enemy Unknown / X-COM: UFO Defense"
+authors = ["Tero Niemi <talamus@gmail.com>"]
+readme = "README.md"
+license = "MIT"
+repository = "https://github.com/talamus/python-xcom-ufo-savegame"
+packages = [{include = "ufo"}]
+classifiers = [
+    "Topic :: Software Development :: Libraries :: Python Modules"
+]
+
+[tool.black]
+exclude = "\\.venv|\\.git|\\.vscode|test_basics\\.py"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+talamus-relatable = "^1.0.2"
+
+[tool.poetry.group.dev.dependencies]
+black = "^22.10"
+
+[tool.poetry.group.test.dependencies]
+pytest = "^7.2.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

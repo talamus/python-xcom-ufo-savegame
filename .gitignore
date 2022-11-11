@@ -1,3 +1,6 @@
+# We are not publishing the lock file!
+poetry.lock
+
 # Generated on-the-fly during testing
 GAME_2/
 

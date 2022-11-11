@@ -1,10 +1,11 @@
 from struct import pack, unpack
-from ufo.baserecord import BaseRecord
-from ufo.utils.datatable import DataTable
+from ufo.records.baserecord import BaseRecord
 
 
 class Soldier(BaseRecord):
-    """ Represents a single soldier from SOLDIER.DAT """
+    """
+    ### Represents a single soldier from SOLDIER.DAT
+    """
 
     FILE_NAME = "SOLDIER.DAT"
     NUMBER_OF_RECORDS = 250
@@ -47,19 +48,21 @@ class Soldier(BaseRecord):
             self.in_psi_training,
             self.recently_promoted,
             self.gender,
-            self.appearance
+            self.appearance,
         ) = unpack("<HHHHhhhh25sBBBBBBBBBBBBBBBBBBBBBBBBBBB", data)
 
-        if rank == 0xffff:
+        if rank == 0xFFFF:
             self.active = False
             return
         else:
             self.active = True
             self.rank = rank
 
-        self.base = None if base == 0xff else base
-        self.craft = None if craft == 0xffff else craft
-        self.craft_before_injury = None if craft_before_injury == 0xffff else craft_before_injury
+        self.base = None if base == 0xFF else base
+        self.craft = None if craft == 0xFFFF else craft
+        self.craft_before_injury = (
+            None if craft_before_injury == 0xFFFF else craft_before_injury
+        )
 
         name = name.decode(self.ENCODING)
         self.name = name.split("\0")[0]
@@ -68,13 +71,14 @@ class Soldier(BaseRecord):
 
     def pack(self) -> bytes:
         if not self.active:
-            return pack("<H66s", 0xffff, b"")
+            return pack("<H66s", 0xFFFF, b"")
 
-        return pack("<HHHHhhhh25sBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+        return pack(
+            "<HHHHhhhh25sBBBBBBBBBBBBBBBBBBBBBBBBBBB",
             self.rank,
-            0xff if self.base == None else self.base,
-            0xffff if self.craft == None else self.craft,
-            0xffff if self.craft_before_injury == None else self.craft_before_injury,
+            0xFF if self.base == None else self.base,
+            0xFFFF if self.craft == None else self.craft,
+            0xFFFF if self.craft_before_injury == None else self.craft_before_injury,
             self.missions,
             self.kills,
             self.injury_recovery_days,
@@ -106,5 +110,5 @@ class Soldier(BaseRecord):
             self.in_psi_training,
             self.recently_promoted,
             self.gender,
-            self.appearance
+            self.appearance,
         )
